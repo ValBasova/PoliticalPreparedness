@@ -7,31 +7,37 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.election.ElectionsViewModel
 import com.example.android.politicalpreparedness.network.models.Address
 import java.util.Locale
 
-//class DetailFragment : Fragment() {
-//
-//    companion object {
-//        //TODO: Add Constant for Location request
-//    }
-//
-//    //TODO: Declare ViewModel
-//
-//    override fun onCreateView(inflater: LayoutInflater,
-//                              container: ViewGroup?,
-//                              savedInstanceState: Bundle?): View? {
-//
-//        //TODO: Establish bindings
-//
-//        //TODO: Define and assign Representative adapter
-//
-//        //TODO: Populate Representative adapter
-//
-//        //TODO: Establish button listeners for field and location search
-//
-//    }
-//
+class DetailFragment : Fragment() {
+
+    companion object {
+        //TODO: Add Constant for Location request
+    }
+
+    private lateinit var viewModel: RepresentativeViewModel
+
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
+        val binding = FragmentElectionBinding.inflate(inflater)
+
+        viewModel = ViewModelProvider(this).get(RepresentativeViewModel::class.java)
+
+        //TODO: Define and assign Representative adapter
+
+        //TODO: Populate Representative adapter
+
+        //TODO: Establish button listeners for field and location search
+
+        return binding.root
+    }
+
 //    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 //        //TODO: Handle location permission result to get location on permission granted
@@ -69,4 +75,4 @@ import java.util.Locale
 //        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
 //    }
 
-//}
+}
