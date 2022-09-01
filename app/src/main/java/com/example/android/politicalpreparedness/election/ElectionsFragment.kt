@@ -5,21 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.repository.ElectionsRepository
 
-class ElectionsFragment: Fragment() {
+class ElectionsFragment : Fragment() {
 
-    private lateinit var viewModel: ElectionsViewModel
+    private lateinit var database: ElectionDatabase
+    private lateinit var repository: ElectionsRepository
+    private val viewModel: ElectionsViewModel by lazy {
+                val activity = requireNotNull(this.activity) {
+                    "You can only access the viewModel after onViewCreated()"
+                }
+                ViewModelProvider(this, ElectionsViewModelFactory(repository)).get(ElectionsViewModel::class.java)
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+            }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val binding = FragmentElectionBinding.inflate(inflater)
         //TODO: Add ViewModel values
-        viewModel = ViewModelProvider(this).get(ElectionsViewModel::class.java)
-
+        database = ElectionDatabase.getInstance(requireContext())
+        repository = ElectionsRepository(database)
 
         //TODO: Add binding values
 
