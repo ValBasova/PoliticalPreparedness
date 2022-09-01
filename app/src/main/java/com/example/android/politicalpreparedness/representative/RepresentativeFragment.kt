@@ -8,7 +8,7 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.election.ElectionsViewModel
 import com.example.android.politicalpreparedness.network.models.Address
 import java.util.Locale
@@ -25,7 +25,7 @@ class DetailFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val binding = FragmentElectionBinding.inflate(inflater)
+        val binding = FragmentRepresentativeBinding.inflate(inflater)
 
         viewModel = ViewModelProvider(this).get(RepresentativeViewModel::class.java)
 
