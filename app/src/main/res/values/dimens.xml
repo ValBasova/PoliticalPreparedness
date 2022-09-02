@@ -2,5 +2,5 @@
 <resources>
     <dimen name="default_padding">8dp</dimen>
     <dimen name="layout_margin">24dp</dimen>
-
+    <dimen name="small_margin">8dp</dimen>
 </resources>
