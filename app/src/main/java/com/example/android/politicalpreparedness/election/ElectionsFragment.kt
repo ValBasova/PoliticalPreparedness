@@ -30,9 +30,12 @@ class ElectionsFragment : Fragment() {
     ): View? {
 
         val binding = FragmentElectionBinding.inflate(inflater)
-        //TODO: Add ViewModel values
+        binding.lifecycleOwner = this
+
         database = ElectionDatabase.getInstance(requireContext())
         repository = ElectionsRepository(database)
+
+        binding.viewModel = viewModel
 
         //TODO: Add binding values
 
