@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
-import com.example.android.politicalpreparedness.election.adapter.ElectionListener
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 
 class ElectionsFragment : Fragment() {
@@ -43,7 +42,7 @@ class ElectionsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        val adapter = ElectionListAdapter((ElectionListener {
+        val adapter = ElectionListAdapter((ElectionListAdapter.ElectionListener {
             findNavController().navigate(
                 ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
                     it.id,
@@ -52,15 +51,15 @@ class ElectionsFragment : Fragment() {
             )
         }))
 
-        binding.electionsList.adapter = adapter
+        binding.upcomingElectionsRecycler.adapter = adapter
+
         viewModel.upcomingElections.observe(viewLifecycleOwner, Observer {
             it.let {
                 adapter.submitList(it)
             }
         })
+
         return binding.root
     }
-
-    //TODO: Refresh adapters when fragment loads
 
 }

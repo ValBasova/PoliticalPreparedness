@@ -23,13 +23,13 @@
             android:padding="8dp"
             android:text="@string/upcoming_elections"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            app:layout_constraintBottom_toTopOf="@id/elections_list"
+            app:layout_constraintBottom_toTopOf="@id/upcoming_elections_recycler"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/elections_list"
+            android:id="@+id/upcoming_elections_recycler"
             android:layout_width="0dp"
             android:layout_height="300dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -46,10 +46,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/elections_list" />
+            app:layout_constraintTop_toBottomOf="@id/upcoming_elections_recycler" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/saved_elections_list"
+            android:id="@+id/saved_elections_recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
