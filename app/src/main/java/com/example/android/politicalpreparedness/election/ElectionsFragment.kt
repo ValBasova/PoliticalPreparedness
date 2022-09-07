@@ -43,12 +43,7 @@ class ElectionsFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = ElectionListAdapter((ElectionListAdapter.ElectionListener {
-            findNavController().navigate(
-                ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
-                    it.id,
-                    it.division
-                )
-            )
+            viewModel.displayVoterInfoFragment(it)
         }))
 
         binding.upcomingElectionsRecycler.adapter = adapter
@@ -56,6 +51,18 @@ class ElectionsFragment : Fragment() {
         viewModel.upcomingElections.observe(viewLifecycleOwner, Observer {
             it.let {
                 adapter.submitList(it)
+            }
+        })
+
+        viewModel.navigateToVoterInfo.observe(viewLifecycleOwner, Observer { election ->
+            election?.let {
+                findNavController().navigate(
+                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
+                        it.id,
+                        it.division
+                    )
+                )
+                viewModel.displayVoterInfoFragmentComplete()
             }
         })
 

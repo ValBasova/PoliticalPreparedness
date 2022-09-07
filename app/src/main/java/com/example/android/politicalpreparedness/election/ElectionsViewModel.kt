@@ -22,6 +22,11 @@ class ElectionsViewModel(private val electionsRepository: ElectionsRepository) :
     val upcomingElections: LiveData<List<Election>>
         get() = _upcomingElections
 
+    private val _navigateToVoterInfo = MutableLiveData<Election>()
+
+    val navigateToVoterInfo: LiveData<Election>
+        get() = _navigateToVoterInfo
+
     //TODO: Create live data val for saved elections
 
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
@@ -43,6 +48,11 @@ class ElectionsViewModel(private val electionsRepository: ElectionsRepository) :
         }
     }
 
-    //TODO: Create functions to navigate to saved or upcoming election voter info
+    fun displayVoterInfoFragment(election: Election) {
+        _navigateToVoterInfo.value = election
+    }
 
+    fun displayVoterInfoFragmentComplete() {
+        _navigateToVoterInfo.value = null
+    }
 }

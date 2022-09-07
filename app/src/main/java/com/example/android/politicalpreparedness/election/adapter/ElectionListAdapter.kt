@@ -18,9 +18,9 @@ class ElectionListAdapter(private val clickListener: ElectionListener) :
     override fun onBindViewHolder(holder: ElectionViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-//        holder.itemView.setOnClickListener {
-//            clickListener.onClick(item)
-//        }
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(item)
+        }
     }
 
     class ElectionDiffCallback : DiffUtil.ItemCallback<Election>() {
