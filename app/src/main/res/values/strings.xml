@@ -6,5 +6,7 @@
     <string name="upcoming_elections">Upcoming elections</string>
     <string name="find_my_representatives">Find my representatives</string>
     <string name="saved_elections">Saved Elections</string>
+    <string name="follow">Follow election</string>
+    <string name="UnFollow">Unfollow election</string>
 
 </resources>
