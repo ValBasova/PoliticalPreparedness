@@ -45,8 +45,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$version_kotlin_serialization"
 
-    // Constraint Layout
+    // Layout
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
