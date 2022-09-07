@@ -47,7 +47,7 @@ dependencies {
 
     // Layout
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.recyclerview:recyclerview:$version_recyclerview")
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
@@ -73,6 +73,7 @@ dependencies {
     //TODO: Add Glide Implementation
 
     //Room
+    implementation("androidx.room:room-ktx:$version_room")
     implementation "androidx.room:room-runtime:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
 

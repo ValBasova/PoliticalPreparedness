@@ -8,14 +8,14 @@ import com.example.android.politicalpreparedness.network.models.Election
 
 class ElectionsRepository (private val dataSource: ElectionDatabase) {
 
-//    fun getElectionList(): LiveData<List<Election>> {
-//        return  dataSource.electionDao.getElections()
-//    }
+    fun getElectionList(): LiveData<List<Election>> {
+        return  dataSource.electionDao.getElections()
+    }
 
 
 
     suspend fun fetchUpcomingElections() {
         val response = CivicsApi.retrofitService.getElections()
-//        dataSource.electionDao.insertAll(response.elections as ArrayList<Election>)
+        dataSource.electionDao.insertAll(response.elections as ArrayList<Election>)
     }
 }

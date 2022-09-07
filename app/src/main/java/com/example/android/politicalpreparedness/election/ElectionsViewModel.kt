@@ -17,10 +17,7 @@ import java.util.ArrayList
 
 class ElectionsViewModel(private val electionsRepository: ElectionsRepository) : ViewModel() {
 
-    //        val upcomingElections = electionsRepository.getElectionList()
-    private val _upcomingElections = MutableLiveData<List<Election>>()
-    val upcomingElections: LiveData<List<Election>>
-        get() = _upcomingElections
+    val upcomingElections = electionsRepository.getElectionList()
 
     private val _navigateToVoterInfo = MutableLiveData<Election>()
 
@@ -39,10 +36,7 @@ class ElectionsViewModel(private val electionsRepository: ElectionsRepository) :
 
     suspend fun refreshUpcomingElections() {
         try {
-//            electionsRepository.fetchUpcomingElections()
-            val response = CivicsApi.retrofitService.getElections()
-            _upcomingElections.value = response.elections
-
+            electionsRepository.fetchUpcomingElections()
         } catch (e: Exception) {
             Log.e("Election API error", e.message.toString())
         }
