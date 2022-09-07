@@ -1,14 +1,27 @@
 package com.example.android.politicalpreparedness.election
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android.politicalpreparedness.database.ElectionDao
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
+import kotlinx.coroutines.launch
 
 class VoterInfoViewModel(
     private val electionId: Int = 0,
-    private val repository: ElectionsRepository) : ViewModel() {
+    private val repository: ElectionsRepository
+) : ViewModel() {
 
-    //TODO: Add live data to hold voter info
+    private val _election = MutableLiveData<Election>()
+    val election: LiveData<Election>
+        get() = _election
+
+    init {
+        viewModelScope.launch {
+            _election.value = repository.getSavedElectionById(electionId)
+        }
+    }
 
     //TODO: Add var and methods to populate voter info
 

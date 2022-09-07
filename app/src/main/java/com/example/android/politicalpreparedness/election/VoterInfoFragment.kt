@@ -30,8 +30,6 @@ class VoterInfoFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        val electionId = VoterInfoFragmentArgs.fromBundle(requireArguments()).argElectionId
-
         return binding.root
 
         //TODO: Populate voter info -- hide views without provided data.
