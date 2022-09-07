@@ -19,4 +19,8 @@ class ElectionsRepository(private val dataSource: ElectionDatabase) {
     suspend fun getSavedElectionById(id: Int): Election {
         return dataSource.electionDao.getElectionById(id)
     }
+
+    suspend fun updateFollow(election: Election) {
+        dataSource.electionDao.updateElection(election)
+    }
 }

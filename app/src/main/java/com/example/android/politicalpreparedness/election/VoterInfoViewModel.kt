@@ -1,9 +1,6 @@
 package com.example.android.politicalpreparedness.election
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
@@ -27,7 +24,18 @@ class VoterInfoViewModel(
 
     //TODO: Add var and methods to support loading URLs
 
-    //TODO: Add var and methods to save and remove elections to local database
+
+    val isFollowed = Transformations.map(_election) {
+        it?.followed
+    }
+
+    fun onFollow() {
+        _election.value?.followed = !(_election.value?.followed)!!
+        viewModelScope.launch {
+            repository.updateFollow(_election.value!!)
+        }
+    }
+
     //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
 
     /**

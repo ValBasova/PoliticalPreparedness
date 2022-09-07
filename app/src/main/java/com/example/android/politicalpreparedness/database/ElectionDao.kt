@@ -16,6 +16,9 @@ interface ElectionDao {
     @Query("SELECT * FROM election_table WHERE id = :id")
     suspend fun getElectionById(id : Int): Election
 
+    @Update
+    suspend fun updateElection(election: Election)
+
     //TODO: Add delete query
 
     //TODO: Add clear query
