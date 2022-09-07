@@ -2,8 +2,11 @@ package com.example.android.politicalpreparedness.election
 
 import androidx.lifecycle.ViewModel
 import com.example.android.politicalpreparedness.database.ElectionDao
+import com.example.android.politicalpreparedness.repository.ElectionsRepository
 
-class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
+class VoterInfoViewModel(
+    private val electionId: Int = 0,
+    private val repository: ElectionsRepository) : ViewModel() {
 
     //TODO: Add live data to hold voter info
 
