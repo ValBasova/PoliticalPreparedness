@@ -45,8 +45,6 @@ class VoterInfoFragment : Fragment() {
 
         //TODO: Handle loading of URLs
 
-        //TODO: Handle save button UI state
-        //TODO: cont'd Handle save button clicks
 
         viewModel.isFollowed.observe(viewLifecycleOwner, Observer {
             if(it == true){

@@ -14,32 +14,30 @@ class VoterInfoViewModel(
     val election: LiveData<Election>
         get() = _election
 
+    private val _isFollowed = MutableLiveData<Boolean>()
+    val isFollowed :  LiveData<Boolean>
+        get() = _isFollowed
+
+
     init {
         viewModelScope.launch {
             _election.value = repository.getSavedElectionById(electionId)
+            _isFollowed.value = _election.value!!.followed
         }
     }
 
-    //TODO: Add var and methods to populate voter info
-
-    //TODO: Add var and methods to support loading URLs
-
-
-    val isFollowed = Transformations.map(_election) {
-        it?.followed
-    }
-
     fun onFollow() {
-        _election.value?.followed = !(_election.value?.followed)!!
+        _isFollowed.value = !(_isFollowed.value)!!
+        _election.value?.followed = isFollowed.value == true
         viewModelScope.launch {
             repository.updateFollow(_election.value!!)
         }
     }
 
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
 
-    /**
-     * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
-     */
+    //TODO: Add var and methods to populate voter info
+
+    //TODO: Add var and methods to support loading URLs
+
 
 }
