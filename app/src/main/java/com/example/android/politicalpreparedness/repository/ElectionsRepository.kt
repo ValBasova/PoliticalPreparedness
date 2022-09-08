@@ -23,4 +23,8 @@ class ElectionsRepository(private val dataSource: ElectionDatabase) {
     suspend fun updateFollow(election: Election) {
         dataSource.electionDao.updateElection(election)
     }
+
+    fun getFollowedElectionList(): LiveData<List<Election>> {
+        return dataSource.electionDao.getFollowedElections()
+    }
 }

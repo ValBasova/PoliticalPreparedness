@@ -13,6 +13,9 @@ interface ElectionDao {
     @Query("SELECT * FROM election_table")
     fun getElections(): LiveData<List<Election>>
 
+    @Query("SELECT * FROM election_table WHERE followed = 1")
+    fun getFollowedElections(): LiveData<List<Election>>
+
     @Query("SELECT * FROM election_table WHERE id = :id")
     suspend fun getElectionById(id : Int): Election
 

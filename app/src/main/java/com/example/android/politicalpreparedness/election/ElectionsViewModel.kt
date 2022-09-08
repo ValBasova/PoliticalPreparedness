@@ -19,6 +19,8 @@ class ElectionsViewModel(private val electionsRepository: ElectionsRepository) :
 
     val upcomingElections = electionsRepository.getElectionList()
 
+    val savedElections = electionsRepository.getFollowedElectionList()
+
     private val _navigateToVoterInfo = MutableLiveData<Election>()
 
     val navigateToVoterInfo: LiveData<Election>
