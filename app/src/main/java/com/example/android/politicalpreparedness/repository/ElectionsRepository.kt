@@ -16,6 +16,10 @@ class ElectionsRepository(private val dataSource: ElectionDatabase) {
         dataSource.electionDao.insertAll(response.elections as ArrayList<Election>)
     }
 
+    suspend fun getVoterInfoById(address: String, electionId: Int) =
+        CivicsApi.retrofitService.getVoterInfo(address, electionId).state?.get(0)
+
+
     suspend fun getSavedElectionById(id: Int): Election {
         return dataSource.electionDao.getElectionById(id)
     }
