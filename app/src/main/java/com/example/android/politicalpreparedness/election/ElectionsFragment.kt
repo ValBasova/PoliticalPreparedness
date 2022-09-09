@@ -51,7 +51,9 @@ class ElectionsFragment : Fragment() {
         }))
 
         binding.upcomingElectionsRecycler.adapter = upcomingAdapter
+        binding.upcomingElectionsRecycler.setHasFixedSize(true)
         binding.savedElectionsRecycler.adapter = followedAdapter
+        binding.savedElectionsRecycler.setHasFixedSize(true)
 
         viewModel.upcomingElections.observe(viewLifecycleOwner, Observer {
             it.let {
