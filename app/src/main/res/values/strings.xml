@@ -8,5 +8,8 @@
     <string name="saved_elections">Saved Elections</string>
     <string name="follow">Follow election</string>
     <string name="unfollow">Unfollow election</string>
+    <string name="election_information">Election Information</string>
+    <string name="voting_location">Voting Location</string>
+    <string name="ballot_information">Ballot Information</string>
 
 </resources>
