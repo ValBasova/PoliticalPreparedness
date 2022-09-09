@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:text="@string/election_information"
             android:textStyle="bold"
+            android:paddingTop="@dimen/layout_margin"
             app:layout_constraintBottom_toTopOf="@+id/state_locations"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/election_date" />
