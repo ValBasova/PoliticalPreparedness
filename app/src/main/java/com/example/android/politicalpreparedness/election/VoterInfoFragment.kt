@@ -39,11 +39,11 @@ class VoterInfoFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-
-        //TODO: Populate voter info -- hide views without provided data.
-        /**
-        Hint: You will need to ensure proper data is provided from previous fragment.
-         */
+        viewModel.polllingLocation.observe(viewLifecycleOwner, Observer { address ->
+            if (address == null || address.trim().isEmpty()) {
+                binding.addressGroup.visibility = View.GONE
+            }
+        })
 
         viewModel.votingLocationUrl.observe(viewLifecycleOwner, Observer { url ->
             if (url != null && url.trim().isNotEmpty()) {

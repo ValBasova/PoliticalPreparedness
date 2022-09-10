@@ -26,6 +26,9 @@ class VoterInfoViewModel(
         get() = _isFollowed
 
     private val _state = MutableLiveData<State>()
+    private val _pollingLocations = MutableLiveData<String>()
+    val polllingLocation: LiveData<String>
+        get() = _pollingLocations
 
     private var _votingLocationUrl = MutableLiveData<String>()
     val votingLocationUrl: LiveData<String>
@@ -60,7 +63,9 @@ class VoterInfoViewModel(
     suspend fun fetchVoterInfoByElectionId() {
         _status.value = MainApiStatus.LOADING
         try {
-            _state.value = repository.getVoterInfoById("Boston", electionId).state?.get(0)
+            val response = repository.getVoterInfoById("Boston", electionId)
+            _state.value = response.state?.get(0)
+            _pollingLocations.value = response.pollingLocations
             _status.value = MainApiStatus.DONE
         } catch (e: Exception) {
             errorMessage = e.message.toString()
