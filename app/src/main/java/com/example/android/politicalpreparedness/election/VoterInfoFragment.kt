@@ -42,6 +42,8 @@ class VoterInfoFragment : Fragment() {
         viewModel.polllingLocation.observe(viewLifecycleOwner, Observer { address ->
             if (address == null || address.trim().isEmpty()) {
                 binding.addressGroup.visibility = View.GONE
+            } else {
+                binding.addressGroup.visibility = View.VISIBLE
             }
         })
 
