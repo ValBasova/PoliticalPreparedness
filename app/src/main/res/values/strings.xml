@@ -12,4 +12,6 @@
     <string name="voting_location">Voting Location</string>
     <string name="ballot_information">Ballot Information</string>
 
+    <string name="error_message">Error with loading data: %s</string>
+
 </resources>

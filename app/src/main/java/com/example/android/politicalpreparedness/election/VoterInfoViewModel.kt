@@ -10,6 +10,8 @@ import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
+enum class MainApiStatus { LOADING, ERROR, DONE }
+
 class VoterInfoViewModel(
     private val electionId: Int = 0,
     private val repository: ElectionsRepository
@@ -33,6 +35,12 @@ class VoterInfoViewModel(
     val ballotInfoUrl: LiveData<String>
         get() = _ballotInfoUrl
 
+    private val _status = MutableLiveData<MainApiStatus>()
+    val status: LiveData<MainApiStatus>
+        get() = _status
+
+    var errorMessage: String = ""
+
     init {
         viewModelScope.launch {
             _election.value = repository.getSavedElectionById(electionId)
@@ -50,9 +58,13 @@ class VoterInfoViewModel(
     }
 
     suspend fun fetchVoterInfoByElectionId() {
+        _status.value = MainApiStatus.LOADING
         try {
             _state.value = repository.getVoterInfoById("Boston", electionId)
+            _status.value = MainApiStatus.DONE
         } catch (e: Exception) {
+            errorMessage = e.message.toString()
+            _status.value = MainApiStatus.ERROR
             Log.e("Get VoteInfo API error", e.message.toString())
         }
     }
