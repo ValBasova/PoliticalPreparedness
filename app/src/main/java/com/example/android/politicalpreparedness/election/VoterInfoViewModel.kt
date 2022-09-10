@@ -60,7 +60,7 @@ class VoterInfoViewModel(
     suspend fun fetchVoterInfoByElectionId() {
         _status.value = MainApiStatus.LOADING
         try {
-            _state.value = repository.getVoterInfoById("Boston", electionId)
+            _state.value = repository.getVoterInfoById("Boston", electionId).state?.get(0)
             _status.value = MainApiStatus.DONE
         } catch (e: Exception) {
             errorMessage = e.message.toString()

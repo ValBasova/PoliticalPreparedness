@@ -17,7 +17,7 @@ class ElectionsRepository(private val dataSource: ElectionDatabase) {
     }
 
     suspend fun getVoterInfoById(address: String, electionId: Int) =
-        CivicsApi.retrofitService.getVoterInfo(address, electionId).state?.get(0)
+        CivicsApi.retrofitService.getVoterInfo(address, electionId)
 
 
     suspend fun getSavedElectionById(id: Int): Election {
