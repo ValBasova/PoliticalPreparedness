@@ -1,5 +1,7 @@
 package com.example.android.politicalpreparedness.election
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,19 +44,34 @@ class VoterInfoFragment : Fragment() {
         Hint: You will need to ensure proper data is provided from previous fragment.
          */
 
+        viewModel.votingLocationUrl.observe(viewLifecycleOwner, Observer { url ->
+            if (url != null && url.trim().isNotEmpty()) {
+                openWebsite(url)
+                viewModel.onClickVotingLocationUrlComplete()
+            }
+        })
 
-        //TODO: Handle loading of URLs
-
+        viewModel.ballotInfoUrl.observe(viewLifecycleOwner, Observer { url ->
+            if (url != null && url.trim().isNotEmpty()) {
+                openWebsite(url)
+                viewModel.onClickBallotInfoUrlComplete()
+            }
+        })
 
         viewModel.isFollowed.observe(viewLifecycleOwner, Observer {
-            if(it == true){
+            if (it == true) {
                 binding.followButton.text = getString(R.string.unfollow)
-            } else{
+            } else {
                 binding.followButton.text = getString(R.string.follow)
             }
         })
 
-        //TODO: Create method to load URL intents
         return binding.root
+    }
+
+    private fun openWebsite(url: String?) {
+        val uri: Uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 }

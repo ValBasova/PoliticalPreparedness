@@ -48,7 +48,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/election_date" />
 
-        <!-- TODO: Add click binding to open web URL -->
 
         <TextView
             android:id="@+id/state_locations"
@@ -56,16 +55,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/voting_location"
+            android:onClick="@{() -> viewModel.onClickVotingLocationUrl()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
 
-        <!-- TODO: Add click binding to open web URL -->
         <TextView
             android:id="@+id/state_ballot"
             style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ballot_information"
+            android:onClick="@{() -> viewModel.onClickBallotInfoUrl()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/state_locations" />
 

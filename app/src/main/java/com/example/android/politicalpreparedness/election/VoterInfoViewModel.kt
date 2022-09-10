@@ -1,7 +1,10 @@
 package com.example.android.politicalpreparedness.election
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
@@ -17,12 +20,18 @@ class VoterInfoViewModel(
         get() = _election
 
     private val _isFollowed = MutableLiveData<Boolean>()
-    val isFollowed :  LiveData<Boolean>
+    val isFollowed: LiveData<Boolean>
         get() = _isFollowed
 
     private val _state = MutableLiveData<State>()
-    val state :  LiveData<State>
-        get() = _state
+
+    private var _votingLocationUrl = MutableLiveData<String>()
+    val votingLocationUrl: LiveData<String>
+        get() = _votingLocationUrl
+
+    private var _ballotInfoUrl = MutableLiveData<String>()
+    val ballotInfoUrl: LiveData<String>
+        get() = _ballotInfoUrl
 
     init {
         viewModelScope.launch {
@@ -40,13 +49,27 @@ class VoterInfoViewModel(
         }
     }
 
-    //TODO: Add var and methods to support loading URLs
     suspend fun fetchVoterInfoByElectionId() {
         try {
-            _state.value  = repository.getVoterInfoById("New York", electionId)
+            _state.value = repository.getVoterInfoById("Boston", electionId)
         } catch (e: Exception) {
             Log.e("Get VoteInfo API error", e.message.toString())
         }
     }
 
+    fun onClickVotingLocationUrl() {
+        _votingLocationUrl.value = _state.value?.electionAdministrationBody?.votingLocationFinderUrl
+    }
+
+    fun onClickVotingLocationUrlComplete() {
+        _votingLocationUrl.value = ""
+    }
+
+    fun onClickBallotInfoUrl() {
+        _ballotInfoUrl.value = _state.value?.electionAdministrationBody?.ballotInfoUrl
+    }
+
+    fun onClickBallotInfoUrlComplete() {
+        _ballotInfoUrl.value = ""
+    }
 }
