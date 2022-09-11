@@ -58,7 +58,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_line_2" />
 
-        <!-- TODO: Add default values from provided resources  -->
         <!-- TODO: Add data binding value -->
         <!-- TODO: Add content -->
         <Spinner
@@ -104,7 +103,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/use_my_location"
-            app:layout_constraintTop_toBottomOf="@id/button_search" />
+            app:layout_constraintTop_toBottomOf="@id/button_search"
+            motion:layout_editor_absoluteX="8dp" />
 
         <TextView
             android:id="@+id/representative_title"
