@@ -2,6 +2,7 @@ package com.example.android.politicalpreparedness.representative
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
+import com.example.android.politicalpreparedness.network.models.Address
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import java.util.*
 
 class DetailFragment : Fragment() {
 
@@ -36,6 +39,8 @@ class DetailFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(RepresentativeViewModel::class.java)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         //TODO: Define and assign Representative adapter
 
         //TODO: Populate Representative adapter
@@ -96,29 +101,29 @@ class DetailFragment : Fragment() {
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 if (location != null) {
-                    val lat = location.latitude
-                    val long = location.longitude
-                    Log.d("MY LOCATION", lat.toString() + " " + long)
+                    viewModel.address.value = geoCodeLocation(location)
+                    Log.d("MY LOCATION", viewModel.address.value!!.city)
                 }
             }
-        //TODO: The geoCodeLocation method is a helper function to change the lat/long location to a human readable street address
 
     }
+    //The geoCodeLocation method is a helper function to change the lat/long location
+    // to a human readable street address
 
-//    private fun geoCodeLocation(location: Location): Address {
-//        val geocoder = Geocoder(context, Locale.getDefault())
-//        return geocoder.getFromLocation(location.latitude, location.longitude, 1)
-//            .map { address ->
-//                Address(
-//                    address.thoroughfare,
-//                    address.subThoroughfare,
-//                    address.locality,
-//                    address.adminArea,
-//                    address.postalCode
-//                )
-//            }
-//            .first()
-//    }
+    private fun geoCodeLocation(location: Location): Address {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        return geocoder.getFromLocation(location.latitude, location.longitude, 1)
+            .map { address ->
+                Address(
+                    address.thoroughfare,
+                    address.subThoroughfare,
+                    address.locality,
+                    address.adminArea,
+                    address.postalCode
+                )
+            }
+            .first()
+    }
 
 //    private fun hideKeyboard() {
 //        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
