@@ -103,6 +103,8 @@ class DetailFragment : Fragment() {
                 if (location != null) {
                     viewModel.address.value = geoCodeLocation(location)
                     Log.d("MY LOCATION", viewModel.address.value!!.city)
+
+                    viewModel.fetchRepresentatives()
                 }
             }
 
