@@ -45,7 +45,6 @@ class DetailFragment : Fragment() {
 
         //TODO: Populate Representative adapter
 
-        //TODO: Establish button listeners for field
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
@@ -53,6 +52,25 @@ class DetailFragment : Fragment() {
         binding.buttonLocation.setOnClickListener {
             if (checkLocationPermissions()) {
                 getLocation()
+            }
+        }
+
+        binding.buttonSearch.setOnClickListener {
+
+            val line1 = viewModel.address.value!!.line1
+            val line2 = viewModel.address.value!!.line2
+            val state = viewModel.address.value!!.state
+            val city = viewModel.address.value!!.city
+            val zip = viewModel.address.value!!.zip
+
+            val address= Address(line1, line2, city, state, zip)
+
+            if (viewModel.validateEnteredData(address)) {
+                viewModel.address.value = address
+                viewModel.fetchRepresentatives()
+            } else {
+                Toast.makeText(requireContext(), viewModel.errorMessage.value, Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 

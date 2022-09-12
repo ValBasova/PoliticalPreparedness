@@ -16,11 +16,16 @@ class RepresentativeViewModel : ViewModel() {
     val representatives: LiveData<MutableList<Representative>>
         get() = _representatives
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
     var name = MutableLiveData<String>()
     val address = MutableLiveData<Address>()
 
     init {
         repository = RepresentativeRepository()
+        address.value = Address("","","","","")
     }
 
     fun fetchRepresentatives() {
@@ -53,5 +58,30 @@ class RepresentativeViewModel : ViewModel() {
     //TODO: Create function get address from geo location
 
     //TODO: Create function to get address from individual fields
+
+    /**
+     * Validate the entered data and show error to the user if there's any empty fields
+     */
+    fun validateEnteredData(enteredAddress: Address): Boolean {
+        if (enteredAddress.line1.isNullOrEmpty()) {
+            _errorMessage.value = "Please fill in Address Line 1"
+            return false
+        }
+        if (enteredAddress.line2.isNullOrEmpty()) {
+            _errorMessage.value = "Please fill in Address Line 2"
+            return false
+        }
+
+        if (enteredAddress.city.isNullOrEmpty()) {
+            _errorMessage.value = "Please fill in City"
+            return false
+        }
+
+        if (enteredAddress.zip.isNullOrEmpty()) {
+            _errorMessage.value = "Please fill in Zip"
+            return false
+        }
+        return true
+    }
 
 }
