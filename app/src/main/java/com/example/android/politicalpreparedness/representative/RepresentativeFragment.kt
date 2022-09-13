@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.representative
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -61,12 +63,14 @@ class DetailFragment : Fragment() {
             LocationServices.getFusedLocationProviderClient(requireContext())
 
         binding.buttonLocation.setOnClickListener {
+            hideKeyboard()
             if (checkLocationPermissions()) {
                 getLocation()
             }
         }
 
         binding.buttonSearch.setOnClickListener {
+            hideKeyboard()
             if (viewModel.validateEnteredData(viewModel.address.value!!)) {
                 viewModel.fetchRepresentatives()
             } else {
@@ -165,9 +169,9 @@ class DetailFragment : Fragment() {
             .first()
     }
 
-//    private fun hideKeyboard() {
-//        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
-//    }
+    private fun hideKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
 
 }
