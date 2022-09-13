@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.RepresentativeItemViewBinding
 import com.example.android.politicalpreparedness.network.models.Channel
 import com.example.android.politicalpreparedness.representative.model.Representative
@@ -35,7 +36,7 @@ class RepresentativeViewHolder(val binding: RepresentativeItemViewBinding) :
 
     fun bind(item: Representative) {
         binding.representative = item
-//        binding.representativePhoto.setImageResource(R.drawable.ic_profile)
+        binding.representativeImage.setImageResource(R.drawable.ic_profile)
 
         //TODO: Show social links ** Hint: Use provided helper methods
         //TODO: Show www link ** Hint: Use provided helper methods
