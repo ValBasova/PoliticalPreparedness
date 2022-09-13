@@ -52,6 +52,7 @@ class RepresentativeViewModel : ViewModel() {
             } catch (e: Exception) {
                 _errorMessage.value = e.message.toString()
                 _status.value = ApiStatus.ERROR
+                _representatives.value = mutableListOf()
                 Log.e("Get Representative by Address API error", e.message.toString())
             }
         }
