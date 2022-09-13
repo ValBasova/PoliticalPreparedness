@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
+import com.example.android.politicalpreparedness.network.ApiStatus
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
@@ -73,6 +74,25 @@ class DetailFragment : Fragment() {
                     .show()
             }
         }
+
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                ApiStatus.LOADING -> {
+                    binding.statusLoadingWheel.visibility = View.VISIBLE
+                }
+                ApiStatus.ERROR -> {
+                    binding.statusLoadingWheel.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.error_message, viewModel.errorMessage.value),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                ApiStatus.DONE -> {
+                    binding.statusLoadingWheel.visibility = View.GONE
+                }
+            }
+        })
 
         return binding.root
     }

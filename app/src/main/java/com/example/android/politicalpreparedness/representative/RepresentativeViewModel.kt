@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.network.ApiStatus
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.repository.RepresentativeRepository
 import com.example.android.politicalpreparedness.representative.model.Representative
@@ -21,6 +22,10 @@ class RepresentativeViewModel : ViewModel() {
     val errorMessage: LiveData<String>
         get() = _errorMessage
 
+    private val _status = MutableLiveData<ApiStatus>()
+    val status: LiveData<ApiStatus>
+        get() = _status
+
     var name = MutableLiveData<String>()
     val address = MutableLiveData<Address>()
 
@@ -31,6 +36,7 @@ class RepresentativeViewModel : ViewModel() {
 
     fun fetchRepresentatives() {
         viewModelScope.launch {
+            _status.value = ApiStatus.LOADING
             try {
                 val representativeResponse = address.value?.let {
                     repository.getRepresentativesByAddress(
@@ -42,8 +48,10 @@ class RepresentativeViewModel : ViewModel() {
                         office.getRepresentatives(representativeResponse.officials)
                     }.toMutableList()
                 }
-
+                _status.value = ApiStatus.DONE
             } catch (e: Exception) {
+                _errorMessage.value = e.message.toString()
+                _status.value = ApiStatus.ERROR
                 Log.e("Get Representative by Address API error", e.message.toString())
             }
         }
