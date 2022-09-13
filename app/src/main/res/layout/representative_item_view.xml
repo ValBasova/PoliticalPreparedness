@@ -23,17 +23,17 @@
             android:contentDescription="@string/representative_profile_photo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_profile"
-            app:profileImage="@{representative.official.photoUrl}" />
+            app:profileImage="@{representative.official.photoUrl}"
+            tools:src="@drawable/ic_profile" />
 
         <TextView
             android:id="@+id/representative_office"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{representative.office.name}"
-            android:textStyle="bold"
-            android:textSize="16sp"
             android:layout_marginStart="8dp"
+            android:text="@{representative.office.name}"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/representative_image"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,9 +43,9 @@
             android:id="@+id/representative_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@{representative.official.name}"
             android:textSize="16sp"
-            android:layout_marginStart="8dp"
             app:layout_constraintStart_toEndOf="@id/representative_image"
             app:layout_constraintTop_toBottomOf="@id/representative_office"
             tools:text="Donald J. Trump" />
@@ -54,45 +54,42 @@
             android:id="@+id/representative_party"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{representative.official.party}"
             android:layout_marginStart="8dp"
+            android:text="@{representative.official.party}"
             app:layout_constraintStart_toEndOf="@id/representative_image"
             app:layout_constraintTop_toBottomOf="@id/representative_name"
             tools:text="Republican Party" />
 
         <ImageView
             android:id="@+id/www_icon"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="16dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/facebook_icon"
-            app:layout_constraintStart_toEndOf="@id/representative_name"
-            app:layout_constraintTop_toBottomOf="@+id/representative_office"
             app:srcCompat="@drawable/ic_www"
             tools:srcCompat="@drawable/ic_www" />
 
         <ImageView
             android:id="@+id/facebook_icon"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="16dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/twitter_icon"
-            app:layout_constraintStart_toEndOf="@id/www_icon"
-            app:layout_constraintTop_toBottomOf="@+id/representative_office"
             app:srcCompat="@drawable/ic_facebook"
             tools:srcCompat="@drawable/ic_facebook" />
 
         <ImageView
             android:id="@+id/twitter_icon"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="16dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/facebook_icon"
-            app:layout_constraintTop_toBottomOf="@+id/representative_office"
             app:srcCompat="@drawable/ic_twitter"
             tools:srcCompat="@drawable/ic_twitter" />
 
