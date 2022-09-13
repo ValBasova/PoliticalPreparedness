@@ -5,12 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.network.ApiStatus
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
-
-enum class MainApiStatus { LOADING, ERROR, DONE }
 
 class VoterInfoViewModel(
     private val electionId: Int = 0,
@@ -38,8 +37,8 @@ class VoterInfoViewModel(
     val ballotInfoUrl: LiveData<String>
         get() = _ballotInfoUrl
 
-    private val _status = MutableLiveData<MainApiStatus>()
-    val status: LiveData<MainApiStatus>
+    private val _status = MutableLiveData<ApiStatus>()
+    val status: LiveData<ApiStatus>
         get() = _status
 
     var errorMessage: String = ""
@@ -61,15 +60,15 @@ class VoterInfoViewModel(
     }
 
     suspend fun fetchVoterInfoByElectionId() {
-        _status.value = MainApiStatus.LOADING
+        _status.value = ApiStatus.LOADING
         try {
             val response = repository.getVoterInfoById("Boston", electionId)
             _state.value = response.state?.get(0)
             _pollingLocations.value = response.pollingLocations
-            _status.value = MainApiStatus.DONE
+            _status.value = ApiStatus.DONE
         } catch (e: Exception) {
             errorMessage = e.message.toString()
-            _status.value = MainApiStatus.ERROR
+            _status.value = ApiStatus.ERROR
             Log.e("Get VoteInfo API error", e.message.toString())
         }
     }

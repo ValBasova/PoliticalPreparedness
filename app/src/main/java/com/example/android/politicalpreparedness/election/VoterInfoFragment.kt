@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.network.ApiStatus
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
@@ -71,10 +72,10 @@ class VoterInfoFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner, Observer {
             when (it) {
-                MainApiStatus.LOADING -> {
+                ApiStatus.LOADING -> {
                     binding.statusLoadingWheel.visibility = View.VISIBLE
                 }
-                MainApiStatus.ERROR -> {
+                ApiStatus.ERROR -> {
                     binding.statusLoadingWheel.visibility = View.GONE
                     Toast.makeText(
                         requireContext(),
@@ -82,7 +83,7 @@ class VoterInfoFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                MainApiStatus.DONE -> {
+                ApiStatus.DONE -> {
                     binding.statusLoadingWheel.visibility = View.GONE
                 }
             }
