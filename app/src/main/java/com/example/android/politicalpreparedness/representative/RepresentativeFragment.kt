@@ -12,10 +12,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import java.util.*
@@ -41,10 +44,17 @@ class DetailFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        //TODO: Define and assign Representative adapter
 
-        //TODO: Populate Representative adapter
+        val adapter = RepresentativeListAdapter((RepresentativeListener {
 
+        }))
+        binding.representativeRecycler.adapter = adapter
+
+        viewModel.representatives.observe(viewLifecycleOwner, Observer {
+            it.let {
+                adapter.submitList(it)
+            }
+        })
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())

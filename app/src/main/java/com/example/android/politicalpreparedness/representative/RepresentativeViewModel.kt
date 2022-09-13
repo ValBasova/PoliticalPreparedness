@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.representative
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,22 +26,25 @@ class RepresentativeViewModel : ViewModel() {
 
     init {
         repository = RepresentativeRepository()
-        address.value = Address("","","","","")
+        address.value = Address("", "", "", "", "")
     }
 
     fun fetchRepresentatives() {
         viewModelScope.launch {
-            try{
-              val representativeResponse= address.value?.let {
-                  repository.getRepresentativesByAddress(
-                      it.toFormattedString())
-              }
+            try {
+                val representativeResponse = address.value?.let {
+                    repository.getRepresentativesByAddress(
+                        it.toFormattedString()
+                    )
+                }
                 if (representativeResponse != null) {
-                    name.value = representativeResponse.offices.get(0).name
+                    _representatives.value = representativeResponse.offices.flatMap { office ->
+                        office.getRepresentatives(representativeResponse.officials)
+                    }.toMutableList()
                 }
 
             } catch (e: Exception) {
-                name.value = e.message.toString()
+                Log.e("Get Representative by Address API error", e.message.toString())
             }
         }
     }
@@ -55,9 +59,6 @@ class RepresentativeViewModel : ViewModel() {
 
      */
 
-    //TODO: Create function get address from geo location
-
-    //TODO: Create function to get address from individual fields
 
     /**
      * Validate the entered data and show error to the user if there's any empty fields
