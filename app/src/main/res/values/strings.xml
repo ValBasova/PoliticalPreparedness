@@ -22,5 +22,6 @@
     <string name="zip">Zip</string>
     <string name="use_my_location">Use My Location</string>
     <string name="my_representatives">My Representatives</string>
+    <string name="representative_profile_photo">Representative Profile Photo</string>
 
 </resources>

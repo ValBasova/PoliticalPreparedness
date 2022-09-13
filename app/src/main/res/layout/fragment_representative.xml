@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/representative_search"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -114,6 +115,7 @@
 
         <TextView
             android:id="@+id/representative_title"
+            android:textSize="18sp"
             style="@style/TextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
