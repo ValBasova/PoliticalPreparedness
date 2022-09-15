@@ -57,11 +57,15 @@ class RepresentativeViewHolder(val binding: RepresentativeItemViewBinding) :
         val facebookUrl = getFacebookUrl(channels)
         if (!facebookUrl.isNullOrBlank()) {
             enableLink(binding.facebookIcon, facebookUrl)
+        } else {
+            binding.facebookIcon.visibility = View.INVISIBLE
         }
 
         val twitterUrl = getTwitterUrl(channels)
         if (!twitterUrl.isNullOrBlank()) {
             enableLink(binding.twitterIcon, twitterUrl)
+        } else {
+            binding.twitterIcon.visibility = View.INVISIBLE
         }
     }
 
